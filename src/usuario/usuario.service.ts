@@ -16,7 +16,7 @@ export class UsuarioService {
     return this.usuarioRepository.findOne({ where: { email } });
   }
 
-  findOne(id: string): Promise<Usuario | undefined> {
+  findOne(id: string) {
     return this.usuarioRepository.findOne({ where: { id: id.toString() } });
   }
 

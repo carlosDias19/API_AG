@@ -25,20 +25,10 @@ export class UsuarioController {
     return await this.usuarioService.create(createUsuarioDto);
   }
 
-  @Get('profile')
-  @ApiBearerAuth() 
-  @ApiOperation({ summary: 'Obter perfil do usuário autenticado' })
-  @UseGuards(AuthGuard) 
-  @ApiResponse({
-    status: 200,
-    description: 'Perfil do usuário recuperado com sucesso.',
-    type: Usuario,
-  })
-  @ApiResponse({
-    status: 401,
-    description: 'Não autorizado, token inválido ou ausente.',
-  })
-  getProfile(@Req() req: any) {
+  @Get()
+  @ApiBearerAuth()
+  @UseGuards(AuthGuard)
+  getAccount(@Req() req: any) {
     return this.usuarioService.findOne(req.user.id);
   }
 }

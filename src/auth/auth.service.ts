@@ -15,13 +15,13 @@ export class AuthService {
   ) {}
 
   async signIn(email: string, pass: string): Promise<{ access_token: string }> {
-    console.log(email, pass);
+    
     const user = await this.usuarioService.findByEmail(email);
 
     if (!user) {
       throw new NotFoundException('Usuário não encontrado');
     }
-    
+
     const payload = { id: user.id, username: user.nome };
     return {
       access_token: await this.jwtService.signAsync(payload),
