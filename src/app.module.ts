@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { ProdutosModule } from './produtos/produtos.module';
-
+import { UsuarioModule } from './usuario/usuario.module'; 
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -20,6 +20,7 @@ import { ProdutosModule } from './produtos/produtos.module';
       synchronize: true,
     }),
     ProdutosModule,
+    UsuarioModule,
   ],
 })
 export class AppModule {}

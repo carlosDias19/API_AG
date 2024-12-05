@@ -13,8 +13,14 @@ export class ProdutosService {
   ) {}
 
   create(createProdutosDto: CreateProdutosDto) {
-    const entity = this.produtosRepository.create(
-        createProdutosDto,);
+    if (!createProdutosDto.nome || createProdutosDto.nome.trim() === '') {
+      throw new Error('O nome do produto não pode estar vazio');
+    }
+    if (createProdutosDto.preco < 0) {
+      throw new Error('O preço do produto não pode ser negativo');
+    }
+
+    const entity = this.produtosRepository.create(createProdutosDto);
     return this.produtosRepository.save(entity);
   }
 
@@ -23,20 +29,21 @@ export class ProdutosService {
   }
 
   findOne(id: string) {
-    return this.produtosRepository.findOne({where: {id : id.toString()}});;
+    return this.produtosRepository.findOne({ where: { id } });
   }
 
-  update(
-    id: string,
-    updateProdutosDto: UpdateProdutosDto,
-  ) {
-    return this.produtosRepository.update(
-      id,
-      updateProdutosDto,
-    );
+  update(id: string, updateProdutosDto: UpdateProdutosDto) {
+    if (updateProdutosDto.nome && updateProdutosDto.nome.trim() === '') {
+      throw new Error('O nome do produto não pode estar vazio');
+    }
+    if (updateProdutosDto.preco && updateProdutosDto.preco < 0) {
+      throw new Error('O preço do produto não pode ser negativo');
+    }
+
+    return this.produtosRepository.update(id, updateProdutosDto);
   }
 
   remove(id: string) {
-    this.produtosRepository.delete(id);;
+    return this.produtosRepository.delete(id);
   }
 }
